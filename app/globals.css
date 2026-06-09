@@ -1,26 +1,89 @@
-@import "tailwindcss";
+/* =========================================
+   ESTILOS PARA ANÁLISIS DEL DOM
+   ========================================= */
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Layout Principal (page.tsx) */
+.app-layout { display: flex; flex-direction: column; min-height: 100vh; font-family: system-ui, sans-serif; margin: 0; padding: 0; }
+.main-content { display: flex; flex: 1; }
+.dashboard { flex: 1; padding: 2rem; background-color: #f4f6f8; }
+.page-header { margin-bottom: 2rem; color: #333; }
+.component-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.component-column { display: flex; flex-direction: column; gap: 2rem; }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Navbar */
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background-color: #1a1a1a; color: white; }
+.nav-logo { font-weight: bold; font-size: 1.2rem; }
+.nav-list { display: flex; list-style: none; gap: 1rem; margin: 0; padding: 0; }
+.nav-item { padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; transition: background-color 0.3s ease; }
+.nav-item:hover { background-color: #333; }
+.nav-active { background-color: #0070f3; }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Sidebar */
+.sidebar { background-color: #2c3e50; color: white; min-height: 100vh; transition: width 0.3s ease; padding: 1rem; }
+.sidebar-expanded { width: 250px; }
+.sidebar-collapsed { width: 80px; }
+.sidebar-toggle-btn { background: #34495e; color: white; border: none; padding: 0.5rem; width: 100%; cursor: pointer; margin-bottom: 1rem; }
+.sidebar-menu { list-style: none; padding: 0; margin: 0; }
+.sidebar-option { padding: 1rem; cursor: pointer; border-bottom: 1px solid #34495e; }
+.sidebar-selected { background-color: #e74c3c; font-weight: bold; }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Card */
+.card { border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; max-width: 300px; background: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.card-title { margin-top: 0; color: #333; }
+.card-desc { color: #666; }
+.card-actions { display: flex; gap: 1rem; margin-top: 1rem; }
+.card-btn { padding: 0.5rem 1rem; border: 1px solid #ccc; background: #f9f9f9; cursor: pointer; border-radius: 4px; }
+.card-liked { background-color: #ffeaea; border-color: #ff4d4d; color: #ff4d4d; }
+.card-details { margin-top: 1rem; padding: 1rem; background: #eef2f5; border-radius: 4px; font-size: 0.9rem;}
+
+/* Counter */
+.counter-container { padding: 1.5rem; border: 2px dashed #0070f3; border-radius: 8px; text-align: center; background: #fafafa; }
+.counter-display { margin: 1rem 0; font-size: 1.2rem; color: #333;}
+.counter-value { font-weight: bold; font-size: 1.5rem; color: #0070f3; }
+.counter-controls { display: flex; justify-content: center; gap: 1rem; }
+.counter-btn { padding: 0.5rem 1rem; font-size: 1rem; cursor: pointer; background: #0070f3; color: white; border: none; border-radius: 4px; }
+.counter-btn:hover { background: #005bb5; }
+
+/* InputTracker */
+.tracker-container { padding: 1.5rem; background-color: #fff8e1; border: 1px solid #ffc107; border-radius: 8px; }
+.tracker-input { width: 100%; padding: 0.75rem; font-size: 1rem; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 1rem; box-sizing: border-box; }
+.tracker-output { font-size: 1.1rem; color: #555; margin-bottom: 1rem; }
+.tracker-clear-btn { background-color: #ffc107; color: #000; border: none; padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px; font-weight: bold; }
+
+/* TaskManager */
+.task-container { padding: 1.5rem; background-color: #e8f5e9; border: 1px solid #4caf50; border-radius: 8px; }
+.task-input-group { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.task-input { flex: 1; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; }
+.task-add-btn { background: #4caf50; color: white; border: none; padding: 0.5rem 1rem; cursor: pointer; border-radius: 4px;}
+.task-list { list-style: none; padding: 0; margin: 0; }
+.task-item { display: flex; justify-content: space-between; align-items: center; background: white; padding: 0.75rem; border: 1px solid #ddd; margin-bottom: 0.5rem; border-radius: 4px; }
+.task-delete-btn { background: #f44336; color: white; border: none; padding: 0.3rem 0.6rem; cursor: pointer; border-radius: 4px;}
+
+/* Modal */
+.modal-wrapper { padding: 1rem 0; }
+.modal-open-btn { background: #9c27b0; color: white; padding: 0.75rem 1.5rem; border: none; cursor: pointer; border-radius: 4px; font-weight: bold;}
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+.modal-content { background: white; padding: 2rem; border-radius: 8px; width: 400px; max-width: 90%; box-shadow: 0 5px 15px rgba(0,0,0,0.3); text-align: center; }
+.modal-close-btn { margin-top: 1.5rem; background: #333; color: white; padding: 0.5rem 1rem; border: none; cursor: pointer; border-radius: 4px;}
+
+/* Accordion */
+.accordion-container { border: 1px solid #ccc; border-radius: 4px; overflow: hidden; background: white; }
+.accordion-header { background: #f1f1f1; padding: 1rem; display: flex; justify-content: space-between; cursor: pointer; font-weight: bold; user-select: none; transition: background 0.2s; }
+.accordion-header:hover { background: #e2e2e2; }
+.accordion-body { padding: 1rem; border-top: 1px solid #ccc; background: #fafafa; color: #444; }
+
+/* NotificationPanel */
+.notification-wrapper { margin: 1rem 0; }
+.notification-trigger-btn { background: #e67e22; color: white; padding: 0.75rem; border: none; cursor: pointer; border-radius: 4px;}
+.notification-panel { position: fixed; bottom: 20px; right: 20px; background: white; border-left: 5px solid #e67e22; box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 300px; border-radius: 4px; overflow: hidden; z-index: 1000; }
+.notification-content { display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
+.notification-close-btn { background: transparent; border: none; font-size: 1.2rem; cursor: pointer; color: #888; }
+.notification-close-btn:hover { color: #333; }
+.notification-progress { height: 4px; background: #e67e22; width: 100%; animation: shrink 3s linear forwards; }
+@keyframes shrink { from { width: 100%; } to { width: 0%; } }
+
+/* Footer */
+.app-footer { text-align: center; padding: 2rem; background-color: #222; color: #ccc; margin-top: 2rem; transition: background-color 0.3s; }
+.app-footer-clicked { background-color: #0b3d20; color: white; }
+.app-footer-btn { margin-top: 1rem; background: transparent; color: #ccc; border: 1px solid #ccc; padding: 0.5rem 1rem; cursor: pointer; transition: all 0.2s; }
+.app-footer-btn:hover { background: #ccc; color: #222; }
